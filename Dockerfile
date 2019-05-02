@@ -39,7 +39,11 @@ RUN apt-get install -y \
         nginx \
         vim
 
-RUN sed -ri "s/upload_max_filesize = 2M/upload_max_filesize = 8M/g" /etc/php/7.2/fpm/php.ini
+# Php.ini
+RUN sed -ri "s/post_max_size = 8M/post_max_size = 128M/g" /etc/php/7.2/fpm/php.ini
+RUN sed -ri "s/upload_max_filesize = 2M/upload_max_filesize = 32M/g" /etc/php/7.2/fpm/php.ini
+RUN sed -ri "s/memory_limit = 128M/memory_limit = 256M/g" /etc/php/7.2/fpm/php.ini
+
 RUN echo 'opcache.enable=1 \n\
 opcache.memory_consumption=512 \n\
 opcache.interned_strings_buffer=16 \n\

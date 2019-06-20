@@ -52,6 +52,15 @@ opcache.validate_timestamps=0 \n\
 opcache.save_comments=1 \n\
 opcache.fast_shutdown=0' >> /etc/php/7.2/fpm/conf.d/10-opcache.ini
 
+RUN echo '; Custom configs \n\
+pm=static \n\
+pm.max_children=300 \n\
+pm.start_servers=20 \n\
+pm.min_spare_servers=5 \n\
+pm.max_spare_servers=30 \n\
+pm.max_requests=10240 \n\
+request_terminate_timeout=30' >> /etc/php/7.2/fpm/php-fpm.conf
+
 # Install Composer
 RUN curl -s http://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
